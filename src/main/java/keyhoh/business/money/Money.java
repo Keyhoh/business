@@ -3,6 +3,14 @@ package keyhoh.business.money;
 import java.math.BigInteger;
 
 public record Money(BigInteger value) {
+    public Money(final int value) {
+        this(BigInteger.valueOf(value));
+    }
+
+    public Money(final long value) {
+        this(BigInteger.valueOf(value));
+    }
+
     public Money add(final Money other) {
         return new Money(this.value.add(other.value));
     }
