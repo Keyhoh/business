@@ -3,7 +3,6 @@ package keyhoh.business.money;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
@@ -104,14 +103,14 @@ class MoneyTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {-1, 0, 1})
+    @MethodSource("intStream")
     void isPositive(final int value) {
         final Money money = new Money(value);
         assertEquals(money.isPositive(), value >= 0);
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {-1, 0, 1})
+    @MethodSource("intStream")
     void isNegative(final int value) {
         final Money money = new Money(value);
         assertEquals(money.isNegative(), value < 0);
