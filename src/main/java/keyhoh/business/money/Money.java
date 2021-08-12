@@ -15,6 +15,10 @@ public record Money(BigInteger value) {
         return new Money(this.value.add(other.value));
     }
 
+    public Money subtract(final Money other) {
+        return new Money(this.value.subtract(other.value));
+    }
+
     public boolean isPositive() {
         return BigInteger.ZERO.compareTo(this.value) <= 0;
     }

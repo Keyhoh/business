@@ -1,30 +1,106 @@
 package keyhoh.business.money;
 
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MoneyTest {
+    static record Pair<T>(T x, T y) {
+    }
+
+    static final int[] ints = {1, 2, 3, 5, 7, 9, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
+    static final long[] longs = {1, 2, 3, 5, 7, 9, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
+
+    static IntStream intStream() {
+        return Stream.of(IntStream.of(0, Integer.MAX_VALUE, Integer.MIN_VALUE), IntStream.of(ints), IntStream.of(ints).map(i -> -i)).flatMapToInt(i -> i);
+    }
+
+    static LongStream longStream() {
+        return Stream.of(LongStream.of(0L, Long.MAX_VALUE, Long.MIN_VALUE), LongStream.of(longs), LongStream.of(longs).map(l -> -l)).flatMapToLong(l -> l);
+    }
+
+    static Stream<Pair<Integer>> intPairs() {
+        return intStream().boxed().flatMap(i -> intStream().mapToObj(j -> new Pair<>(i, j))).filter(p -> p.x() <= p.y());
+    }
+
+    static Stream<Pair<Long>> longPairs() {
+        return longStream().boxed().flatMap(i -> longStream().mapToObj(j -> new Pair<>(i, j))).filter(p -> p.x() <= p.y());
+    }
+
+    static boolean isBound(final Integer i) {
+        return i == Integer.MAX_VALUE || i == Integer.MIN_VALUE;
+    }
+
+    static boolean isBound(final Long l) {
+        return l == Long.MAX_VALUE || l == Long.MIN_VALUE;
+    }
+
     @ParameterizedTest
-    @ValueSource(ints = {Integer.MIN_VALUE, -64, -32, -16, -8, -4, -2, 0, 2, 4, 16, 32, 64, Integer.MAX_VALUE})
+    @MethodSource("intStream")
     void intConstruct(final int value) {
         assertEquals(new Money(value), new Money(value));
     }
 
     @ParameterizedTest
-    @ValueSource(longs = {Long.MIN_VALUE, -64L, -32L, -16L, -8L, -4L, -2L, 0L, 2L, 4L, 16L, 32L, 64L, Long.MAX_VALUE})
+    @MethodSource("longStream")
     void longConstruct(final long value) {
         assertEquals(new Money(value), new Money(value));
     }
 
-    @Test
-    void add() {
-        final Money x = new Money(1);
-        final Money y = new Money(2);
-        assertEquals(x.add(y), new Money(3));
+    @ParameterizedTest
+    @MethodSource("intPairs")
+    void addInt(final Pair<Integer> pair) {
+        if (isBound(pair.x()) || isBound(pair.y())) {
+            assertTrue(true);
+            return;
+        }
+        final Money x = new Money(pair.x());
+        final Money y = new Money(pair.y());
+        assertEquals(x.add(y), new Money(pair.x() + pair.y()));
+    }
+
+    @ParameterizedTest
+    @MethodSource("longPairs")
+    void addLong(final Pair<Long> pair) {
+        if (isBound(pair.x()) || isBound(pair.y())) {
+            assertTrue(true);
+            return;
+        }
+        final Money x = new Money(pair.x());
+        final Money y = new Money(pair.y());
+        assertEquals(x.add(y), new Money(pair.x() + pair.y()));
+    }
+
+    @ParameterizedTest
+    @MethodSource("intPairs")
+    void subtractInt(final Pair<Integer> pair) {
+        if (isBound(pair.x()) || isBound(pair.y())) {
+            assertTrue(true);
+            return;
+        }
+        final Money x = new Money(pair.x());
+        final Money y = new Money(pair.y());
+        assertEquals(x.subtract(y), new Money(pair.x() - pair.y()));
+    }
+
+    @ParameterizedTest
+    @MethodSource("longPairs")
+    void subtractLong(final Pair<Long> pair) {
+        if (isBound(pair.x()) || isBound(pair.y())) {
+            assertTrue(true);
+            return;
+        }
+        final Money x = new Money(pair.x());
+        final Money y = new Money(pair.y());
+        assertEquals(x.subtract(y), new Money(pair.x() - pair.y()));
     }
 
     @ParameterizedTest
