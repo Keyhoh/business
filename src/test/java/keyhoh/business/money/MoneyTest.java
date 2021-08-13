@@ -4,6 +4,7 @@ package keyhoh.business.money;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.text.DecimalFormat;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
@@ -114,5 +115,13 @@ class MoneyTest {
     void isNegative(final int value) {
         final Money money = new Money(value);
         assertEquals(money.isNegative(), value < 0);
+    }
+
+    @ParameterizedTest
+    @MethodSource("intStream")
+    void toFormattedString(final int value) {
+        final Money money = new Money(value);
+        assertEquals(money.toFormattedString(), new DecimalFormat("#,####").format(value));
+        assertEquals(money.toFormattedString("#,###"), new DecimalFormat("#,###").format(value));
     }
 }
