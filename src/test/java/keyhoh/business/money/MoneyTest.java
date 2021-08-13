@@ -1,6 +1,8 @@
 package keyhoh.business.money;
 
-
+import keyhoh.business.util.IntSource;
+import keyhoh.business.util.LongSource;
+import keyhoh.business.util.Pair;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -13,26 +15,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MoneyTest {
-    static record Pair<T>(T x, T y) {
-    }
-
-    static final int[] ints = {1, 2, 3, 5, 7, 9, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
-    static final long[] longs = {1, 2, 3, 5, 7, 9, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
-
     static IntStream intStream() {
-        return Stream.of(IntStream.of(0, Integer.MAX_VALUE, Integer.MIN_VALUE), IntStream.of(ints), IntStream.of(ints).map(i -> -i)).flatMapToInt(i -> i);
+        return IntSource.intStream();
     }
 
     static LongStream longStream() {
-        return Stream.of(LongStream.of(0L, Long.MAX_VALUE, Long.MIN_VALUE), LongStream.of(longs), LongStream.of(longs).map(l -> -l)).flatMapToLong(l -> l);
+        return LongSource.longStream();
     }
 
     static Stream<Pair<Integer>> intPairs() {
-        return intStream().boxed().flatMap(i -> intStream().mapToObj(j -> new Pair<>(i, j))).filter(p -> p.x() <= p.y());
+        return IntSource.intPairs();
     }
 
     static Stream<Pair<Long>> longPairs() {
-        return longStream().boxed().flatMap(i -> longStream().mapToObj(j -> new Pair<>(i, j))).filter(p -> p.x() <= p.y());
+        return LongSource.longPairs();
     }
 
     static boolean isBound(final Integer i) {

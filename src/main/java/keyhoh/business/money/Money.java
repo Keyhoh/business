@@ -2,8 +2,6 @@ package keyhoh.business.money;
 
 import java.math.BigInteger;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.Locale;
 
 /**
  * * 貨幣
@@ -69,6 +67,7 @@ public record Money(BigInteger value) {
 
     /**
      * 整形済み文字列を返します
+     *
      * @return 整形済み文字列
      */
     public String toFormattedString(final String format) {
@@ -77,6 +76,7 @@ public record Money(BigInteger value) {
 
     /**
      * 整形済み文字列を返します
+     *
      * @return 整形済み文字列
      */
     public String toFormattedString() {
