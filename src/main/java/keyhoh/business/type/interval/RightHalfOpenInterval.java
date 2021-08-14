@@ -3,7 +3,7 @@ package keyhoh.business.type.interval;
 /**
  * 右半開区間
  *
- * @param <T>
+ * @param <T> 順序付けられたクラス
  */
 public record RightHalfOpenInterval<T extends Comparable<T>>(T start, T end) implements Interval<T> {
     @Override
