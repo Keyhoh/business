@@ -1,4 +1,4 @@
-package keyhoh.business.money;
+package keyhoh.business.currency;
 
 import java.math.BigInteger;
 import java.text.DecimalFormat;
@@ -7,13 +7,13 @@ import java.text.DecimalFormat;
  * * 貨幣
  * 貨幣とは価値の単位です
  */
-public record Money(BigInteger value) {
+public record Currency(BigInteger value) {
     /**
      * int型から貨幣を作成します
      *
      * @param value 価値
      */
-    public Money(final int value) {
+    public Currency(final int value) {
         this(BigInteger.valueOf(value));
     }
 
@@ -22,7 +22,7 @@ public record Money(BigInteger value) {
      *
      * @param value 価値
      */
-    public Money(final long value) {
+    public Currency(final long value) {
         this(BigInteger.valueOf(value));
     }
 
@@ -32,8 +32,8 @@ public record Money(BigInteger value) {
      * @param other もう一つの貨幣
      * @return 和の価値を持つ貨幣
      */
-    public Money add(final Money other) {
-        return new Money(this.value.add(other.value));
+    public Currency add(final Currency other) {
+        return new Currency(this.value.add(other.value));
     }
 
     /**
@@ -42,8 +42,8 @@ public record Money(BigInteger value) {
      * @param other もう一つの貨幣
      * @return 差の価値を持つ貨幣
      */
-    public Money subtract(final Money other) {
-        return new Money(this.value.subtract(other.value));
+    public Currency subtract(final Currency other) {
+        return new Currency(this.value.subtract(other.value));
     }
 
     /**
