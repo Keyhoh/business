@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 
 /**
  * * 貨幣
+ * 貨幣とは価値の単位です
  */
 public record Money(BigInteger value) {
     /**
