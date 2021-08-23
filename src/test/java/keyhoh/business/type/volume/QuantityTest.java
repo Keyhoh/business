@@ -3,6 +3,7 @@ package keyhoh.business.type.volume;
 import keyhoh.business.util.LongSource;
 import keyhoh.business.util.Pair;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.math.BigInteger;
@@ -20,8 +21,8 @@ class QuantityTest {
         return LongSource.longStream().filter(l -> l < 0);
     }
 
-    static Stream<Pair<Long>> longPairs() {
-        return LongSource.longPairs().filter(p -> p.x() >= 0 && p.y() >= 0);
+    static Stream<Arguments> longPairs() {
+        return LongSource.longPairs().filter(p -> p.x() >= 0 && p.y() >= 0).map(Pair::toArguments);
     }
 
     @ParameterizedTest
@@ -38,16 +39,16 @@ class QuantityTest {
 
     @ParameterizedTest
     @MethodSource("longPairs")
-    void add(final Pair<Long> pair) {
-        final Quantity x = new Quantity(pair.x());
-        final Quantity y = new Quantity(pair.y());
-        assertEquals(x.add(y).value(), BigInteger.valueOf(pair.x()).add(BigInteger.valueOf(pair.y())));
+    void add(final long a, final long b) {
+        final Quantity x = new Quantity(a);
+        final Quantity y = new Quantity(b);
+        assertEquals(x.add(y).value(), BigInteger.valueOf(a).add(BigInteger.valueOf(b)));
     }
 
     @ParameterizedTest
     @MethodSource("longPairs")
-    void scalar_product(final Pair<Long> pair) {
-        final Quantity x = new Quantity(pair.x());
-        assertEquals(x.multiply(pair.y()).value(), BigInteger.valueOf(pair.x()).multiply(BigInteger.valueOf(pair.y())));
+    void scalar_product(final long value, final long scalar) {
+        final Quantity x = new Quantity(value);
+        assertEquals(x.multiply(scalar).value(), BigInteger.valueOf(value).multiply(BigInteger.valueOf(scalar)));
     }
 }
