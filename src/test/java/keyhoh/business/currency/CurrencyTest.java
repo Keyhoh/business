@@ -4,6 +4,7 @@ import keyhoh.business.util.IntSource;
 import keyhoh.business.util.LongSource;
 import keyhoh.business.util.Pair;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.text.DecimalFormat;
@@ -23,12 +24,12 @@ class CurrencyTest {
         return LongSource.longStream();
     }
 
-    static Stream<Pair<Integer>> intPairs() {
-        return IntSource.intPairs();
+    static Stream<Arguments> intPairs() {
+        return IntSource.intPairs().map(Pair::toArguments);
     }
 
-    static Stream<Pair<Long>> longPairs() {
-        return LongSource.longPairs();
+    static Stream<Arguments> longPairs() {
+        return LongSource.longPairs().map(Pair::toArguments);
     }
 
     static boolean isBound(final Integer i) {
@@ -53,50 +54,50 @@ class CurrencyTest {
 
     @ParameterizedTest
     @MethodSource("intPairs")
-    void addInt(final Pair<Integer> pair) {
-        if (isBound(pair.x()) || isBound(pair.y())) {
+    void addInt(final int a, final int b) {
+        if (isBound(a) || isBound(b)) {
             assertTrue(true);
             return;
         }
-        final Currency x = new Currency(pair.x());
-        final Currency y = new Currency(pair.y());
-        assertEquals(x.add(y), new Currency(pair.x() + pair.y()));
+        final Currency x = new Currency(a);
+        final Currency y = new Currency(b);
+        assertEquals(x.add(y), new Currency(a + b));
     }
 
     @ParameterizedTest
     @MethodSource("longPairs")
-    void addLong(final Pair<Long> pair) {
-        if (isBound(pair.x()) || isBound(pair.y())) {
+    void addLong(final long a, final long b) {
+        if (isBound(a) || isBound(b)) {
             assertTrue(true);
             return;
         }
-        final Currency x = new Currency(pair.x());
-        final Currency y = new Currency(pair.y());
-        assertEquals(x.add(y), new Currency(pair.x() + pair.y()));
+        final Currency x = new Currency(a);
+        final Currency y = new Currency(b);
+        assertEquals(x.add(y), new Currency(a + b));
     }
 
     @ParameterizedTest
     @MethodSource("intPairs")
-    void subtractInt(final Pair<Integer> pair) {
-        if (isBound(pair.x()) || isBound(pair.y())) {
+    void subtractInt(final int a, final int b) {
+        if (isBound(a) || isBound(b)) {
             assertTrue(true);
             return;
         }
-        final Currency x = new Currency(pair.x());
-        final Currency y = new Currency(pair.y());
-        assertEquals(x.subtract(y), new Currency(pair.x() - pair.y()));
+        final Currency x = new Currency(a);
+        final Currency y = new Currency(b);
+        assertEquals(x.subtract(y), new Currency(a - b));
     }
 
     @ParameterizedTest
     @MethodSource("longPairs")
-    void subtractLong(final Pair<Long> pair) {
-        if (isBound(pair.x()) || isBound(pair.y())) {
+    void subtractLong(final long a, final long b) {
+        if (isBound(a) || isBound(b)) {
             assertTrue(true);
             return;
         }
-        final Currency x = new Currency(pair.x());
-        final Currency y = new Currency(pair.y());
-        assertEquals(x.subtract(y), new Currency(pair.x() - pair.y()));
+        final Currency x = new Currency(a);
+        final Currency y = new Currency(b);
+        assertEquals(x.subtract(y), new Currency(a - b));
     }
 
     @ParameterizedTest
