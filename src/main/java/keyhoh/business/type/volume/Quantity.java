@@ -18,6 +18,10 @@ public record Quantity(BigInteger value) implements Comparable<Quantity> {
         return new Quantity(this.value.add(other.value));
     }
 
+    public Quantity multiply(final long scalar) {
+        return new Quantity(BigInteger.valueOf(scalar).multiply(this.value));
+    }
+
     @Override
     public int compareTo(final Quantity other) {
         return this.value.compareTo(other.value);

@@ -43,4 +43,11 @@ class QuantityTest {
         final Quantity y = new Quantity(pair.y());
         assertEquals(x.add(y).value(), BigInteger.valueOf(pair.x()).add(BigInteger.valueOf(pair.y())));
     }
+
+    @ParameterizedTest
+    @MethodSource("longPairs")
+    void scalar_product(final Pair<Long> pair) {
+        final Quantity x = new Quantity(pair.x());
+        assertEquals(x.multiply(pair.y()).value(), BigInteger.valueOf(pair.x()).multiply(BigInteger.valueOf(pair.y())));
+    }
 }
