@@ -5,11 +5,11 @@ import java.text.DecimalFormat;
 
 /**
  * * 貨幣
- * 貨幣とは価値の単位です
+ * 貨幣とは価値の単位です。
  */
 public record Currency(BigInteger value) {
     /**
-     * int型から貨幣を作成します
+     * int型から貨幣を作成します。
      *
      * @param value 価値
      */
@@ -18,7 +18,7 @@ public record Currency(BigInteger value) {
     }
 
     /**
-     * long型から貨幣を作成します
+     * long型から貨幣を作成します。
      *
      * @param value 価値
      */
@@ -27,7 +27,7 @@ public record Currency(BigInteger value) {
     }
 
     /**
-     * 二つの貨幣の和の価値を持つ貨幣を作成します
+     * 二つの貨幣の和の価値を持つ貨幣を作成します。
      *
      * @param other もう一つの貨幣
      * @return 和の価値を持つ貨幣
@@ -37,7 +37,7 @@ public record Currency(BigInteger value) {
     }
 
     /**
-     * 二つの貨幣の差の価値を持つ貨幣を作成します
+     * 二つの貨幣の差の価値を持つ貨幣を作成します。
      *
      * @param other もう一つの貨幣
      * @return 差の価値を持つ貨幣
@@ -47,8 +47,8 @@ public record Currency(BigInteger value) {
     }
 
     /**
-     * 価値が正であることを示します
-     * 0は正です
+     * 価値が正であることを示します。
+     * 0は正です。
      *
      * @return 価値は正です
      */
@@ -57,8 +57,8 @@ public record Currency(BigInteger value) {
     }
 
     /**
-     * 価値が負であることを示します
-     * 0は負ではありません
+     * 価値が負であることを示します。
+     * 0は負ではありません。
      *
      * @return 価値は負です
      */
@@ -67,7 +67,7 @@ public record Currency(BigInteger value) {
     }
 
     /**
-     * 整形済み文字列を返します
+     * 整形済み文字列を返します。
      *
      * @return 整形済み文字列
      */
@@ -76,7 +76,7 @@ public record Currency(BigInteger value) {
     }
 
     /**
-     * 整形済み文字列を返します
+     * 整形済み文字列を返します。
      *
      * @return 整形済み文字列
      */
