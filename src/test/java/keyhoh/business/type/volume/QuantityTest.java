@@ -14,11 +14,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class QuantityTest {
     static LongStream positiveLongStream() {
-        return LongSource.longStream().filter(l -> l >= 0);
+        return LongSource.longStreamClosed().filter(l -> l >= 0);
     }
 
     static LongStream negativeLongStream() {
-        return LongSource.longStream().filter(l -> l < 0);
+        return LongSource.longStreamClosed().filter(l -> l < 0);
     }
 
     static Stream<Arguments> longPairs() {

@@ -7,41 +7,29 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CurrencyTest {
     static IntStream intStream() {
-        return IntSource.intStream();
-    }
-
-    static IntStream intStreamWithoutBounds() {
-        return IntSource.intStream().filter(i -> !isBound(i));
+        return IntSource.intStreamClosed();
     }
 
     static LongStream longStream() {
-        return LongSource.longStream();
+        return LongSource.longStreamClosed();
     }
 
-    static Stream<Arguments> intPairs() {
-        return IntSource.intPairs().map(Pair::toArguments);
+    static Stream<Arguments> intPairsClosed() {
+        return IntSource.intPairsClosed().map(Pair::toArguments);
     }
 
-    static Stream<Arguments> longPairs() {
+    static Stream<Arguments> longPairsClosed() {
         return LongSource.longPairs().map(Pair::toArguments);
-    }
-
-    static boolean isBound(final Integer i) {
-        return i == Integer.MAX_VALUE || i == Integer.MIN_VALUE;
-    }
-
-    static boolean isBound(final Long l) {
-        return l == Long.MAX_VALUE || l == Long.MIN_VALUE;
     }
 
     @ParameterizedTest
@@ -57,51 +45,35 @@ class CurrencyTest {
     }
 
     @ParameterizedTest
-    @MethodSource("intPairs")
+    @MethodSource("intPairsClosed")
     void addInt(final int a, final int b) {
-        if (isBound(a) || isBound(b)) {
-            assertTrue(true);
-            return;
-        }
         final Currency x = new Currency(a);
         final Currency y = new Currency(b);
-        assertEquals(x.add(y), new Currency(a + b));
+        assertEquals(x.add(y), new Currency(BigInteger.valueOf(a).add(BigInteger.valueOf(b))));
     }
 
     @ParameterizedTest
-    @MethodSource("longPairs")
+    @MethodSource("longPairsClosed")
     void addLong(final long a, final long b) {
-        if (isBound(a) || isBound(b)) {
-            assertTrue(true);
-            return;
-        }
         final Currency x = new Currency(a);
         final Currency y = new Currency(b);
-        assertEquals(x.add(y), new Currency(a + b));
+        assertEquals(x.add(y), new Currency(BigInteger.valueOf(a).add(BigInteger.valueOf(b))));
     }
 
     @ParameterizedTest
-    @MethodSource("intPairs")
+    @MethodSource("intPairsClosed")
     void subtractInt(final int a, final int b) {
-        if (isBound(a) || isBound(b)) {
-            assertTrue(true);
-            return;
-        }
         final Currency x = new Currency(a);
         final Currency y = new Currency(b);
-        assertEquals(x.subtract(y), new Currency(a - b));
+        assertEquals(x.subtract(y), new Currency(BigInteger.valueOf(a).subtract(BigInteger.valueOf(b))));
     }
 
     @ParameterizedTest
-    @MethodSource("longPairs")
+    @MethodSource("longPairsClosed")
     void subtractLong(final long a, final long b) {
-        if (isBound(a) || isBound(b)) {
-            assertTrue(true);
-            return;
-        }
         final Currency x = new Currency(a);
         final Currency y = new Currency(b);
-        assertEquals(x.subtract(y), new Currency(a - b));
+        assertEquals(x.subtract(y), new Currency(BigInteger.valueOf(a).subtract(BigInteger.valueOf(b))));
     }
 
     @ParameterizedTest

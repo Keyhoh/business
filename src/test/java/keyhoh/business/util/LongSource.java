@@ -1,16 +1,42 @@
 package keyhoh.business.util;
 
+import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 public class LongSource {
-    public static final long[] longs = {1, 2, 3, 5, 7, 9, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
+    public static LongStream longStreamClosed(final long start, final long stop) {
+        final BigDecimal s = BigDecimal.valueOf(start);
+        final BigDecimal l = BigDecimal.valueOf(stop).subtract(s).add(BigDecimal.ONE);
+        final Set<Long> set = new HashSet<>();
+        while (set.size() < 4096) {
+            set.add(BigDecimal.valueOf(Math.random()).multiply(l).add(s).longValue());
+        }
+        return set.parallelStream().mapToLong(i -> i);
+    }
+
+    public static LongStream longStreamClosed() {
+        return longStreamClosed(Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+
+    public static LongStream longStream(final long start, final long end) {
+        return longStreamClosed(start, end - 1);
+    }
 
     public static LongStream longStream() {
-        return Stream.of(LongStream.of(0L, Long.MAX_VALUE, Long.MIN_VALUE), LongStream.of(longs), LongStream.of(longs).map(l -> -l)).flatMapToLong(l -> l);
+        return longStream(Long.MIN_VALUE, Long.MAX_VALUE);
     }
 
     public static Stream<Pair<Long, Long>> longPairs() {
-        return longStream().boxed().flatMap(i -> longStream().mapToObj(j -> new Pair<>(i, j))).filter(p -> p.x() <= p.y());
+        final List<Long> x = longStreamClosed().boxed().toList();
+        final List<Long> y = longStreamClosed().boxed().toList();
+        final Set<Pair<Long, Long>> pairs = new HashSet<>();
+        for (int i = 0; i < x.size(); i++) {
+            pairs.add(new Pair<>(x.get(i), y.get(i)));
+        }
+        return pairs.stream();
     }
 }
