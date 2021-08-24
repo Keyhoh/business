@@ -21,8 +21,8 @@ class QuantityTest {
         return LongSource.longStreamClosed().filter(l -> l < 0);
     }
 
-    static Stream<Arguments> longPairs() {
-        return LongSource.longPairs().filter(p -> p.x() >= 0 && p.y() >= 0).map(Pair::toArguments);
+    static Stream<Arguments> longPairsClosed() {
+        return LongSource.longPairsClosed().filter(p -> p.x() >= 0 && p.y() >= 0).map(Pair::toArguments);
     }
 
     @ParameterizedTest
@@ -38,7 +38,7 @@ class QuantityTest {
     }
 
     @ParameterizedTest
-    @MethodSource("longPairs")
+    @MethodSource("longPairsClosed")
     void add(final long a, final long b) {
         final Quantity x = new Quantity(a);
         final Quantity y = new Quantity(b);
@@ -46,7 +46,7 @@ class QuantityTest {
     }
 
     @ParameterizedTest
-    @MethodSource("longPairs")
+    @MethodSource("longPairsClosed")
     void scalar_product(final long value, final long scalar) {
         final Quantity x = new Quantity(value);
         assertEquals(x.multiply(scalar).value(), BigInteger.valueOf(value).multiply(BigInteger.valueOf(scalar)));

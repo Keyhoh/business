@@ -30,7 +30,7 @@ public class LongSource {
         return longStream(Long.MIN_VALUE, Long.MAX_VALUE);
     }
 
-    public static Stream<Pair<Long, Long>> longPairs() {
+    public static Stream<Pair<Long, Long>> longPairsClosed() {
         final List<Long> x = longStreamClosed().boxed().toList();
         final List<Long> y = longStreamClosed().boxed().toList();
         final Set<Pair<Long, Long>> pairs = new HashSet<>();

@@ -9,15 +9,6 @@ import java.text.DecimalFormat;
  */
 public record Currency(BigInteger value) {
     /**
-     * int型から貨幣を作成します。
-     *
-     * @param value 価値
-     */
-    public Currency(final int value) {
-        this(BigInteger.valueOf(value));
-    }
-
-    /**
      * long型から貨幣を作成します。
      *
      * @param value 価値
