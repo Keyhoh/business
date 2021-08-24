@@ -20,6 +20,10 @@ class CurrencyTest {
         return IntSource.intStream();
     }
 
+    static IntStream intStreamWithoutBounds() {
+        return IntSource.intStream().filter(i -> !isBound(i));
+    }
+
     static LongStream longStream() {
         return LongSource.longStream();
     }

@@ -10,7 +10,7 @@ public class LongSource {
         return Stream.of(LongStream.of(0L, Long.MAX_VALUE, Long.MIN_VALUE), LongStream.of(longs), LongStream.of(longs).map(l -> -l)).flatMapToLong(l -> l);
     }
 
-    public static Stream<Pair<Long>> longPairs() {
+    public static Stream<Pair<Long, Long>> longPairs() {
         return longStream().boxed().flatMap(i -> longStream().mapToObj(j -> new Pair<>(i, j))).filter(p -> p.x() <= p.y());
     }
 }

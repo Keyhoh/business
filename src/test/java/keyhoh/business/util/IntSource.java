@@ -10,7 +10,7 @@ public class IntSource {
         return Stream.of(IntStream.of(0, Integer.MAX_VALUE, Integer.MIN_VALUE), IntStream.of(ints), IntStream.of(ints).map(i -> -i)).flatMapToInt(i -> i);
     }
 
-    public static Stream<Pair<Integer>> intPairs() {
+    public static Stream<Pair<Integer, Integer>> intPairs() {
         return intStream().boxed().flatMap(i -> intStream().mapToObj(j -> new Pair<>(i, j))).filter(p -> p.x() <= p.y());
     }
 }
