@@ -43,4 +43,13 @@ public class BusinessYear {
     public Year toYear(final Month on) {
         return this.start.compareTo(on) > 0 ? this.value.plusYears(1) : this.value;
     }
+
+    /**
+     * 年度の値を返します。
+     *
+     * @return 値
+     */
+    public int getValue() {
+        return this.value.getValue();
+    }
 }

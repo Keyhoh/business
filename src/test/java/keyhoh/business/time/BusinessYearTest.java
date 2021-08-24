@@ -1,14 +1,28 @@
 package keyhoh.business.time;
 
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.time.Month;
 import java.time.Year;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BusinessYearTest {
+    static Stream<Year> yearStream() {
+        final Set<Integer> set = new HashSet<>();
+        final Random r = new Random();
+        while (set.size() < 16384) {
+            set.add(r.nextInt(Year.MAX_VALUE - Year.MIN_VALUE + 1) + Year.MIN_VALUE);
+        }
+        return set.stream().map(Year::of);
+    }
+
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12})
     void toYear_by_default_business_year(final int month) {
@@ -30,5 +44,11 @@ class BusinessYearTest {
         System.setProperty("business.time.year.start", "4");
         final BusinessYear businessYear = new BusinessYear(Year.of(2000));
         assertEquals(businessYear.toYear(Month.of(month)), Year.of(2001));
+    }
+
+    @ParameterizedTest
+    @MethodSource("yearStream")
+    void getValue(final Year year) {
+        assertEquals(new BusinessYear(year).getValue(), year.getValue());
     }
 }
