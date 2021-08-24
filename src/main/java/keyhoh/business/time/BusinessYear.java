@@ -1,14 +1,16 @@
 package keyhoh.business.time;
 
+import java.time.Month;
+import java.time.Year;
 import java.util.Optional;
 
 /**
  * *年度
  * 年度とはビジネスにおける1年の単位です。
  */
-public class Year {
-    private final java.time.Month start;
-    private final java.time.Year value;
+public class BusinessYear {
+    private final Month start;
+    private final Year value;
 
     /**
      * 年度を作成します。
@@ -16,7 +18,7 @@ public class Year {
      * @param start 年度開始月
      * @param value 年
      */
-    public Year(final java.time.Month start, final java.time.Year value) {
+    public BusinessYear(final Month start, final Year value) {
         this.start = start;
         this.value = value;
     }
@@ -28,8 +30,8 @@ public class Year {
      *
      * @param value 年
      */
-    public Year(final java.time.Year value) {
-        this(java.time.Month.of(Integer.parseInt(Optional.ofNullable(System.getProperty("business.time.year.start")).orElse("1"))), value);
+    public BusinessYear(final Year value) {
+        this(Month.of(Integer.parseInt(Optional.ofNullable(System.getProperty("business.time.year.start")).orElse("1"))), value);
     }
 
     /**
@@ -38,7 +40,7 @@ public class Year {
      * @param on 月
      * @return 年
      */
-    public java.time.Year toYear(final java.time.Month on) {
+    public Year toYear(final Month on) {
         return this.start.compareTo(on) > 0 ? this.value.plusYears(1) : this.value;
     }
 }
