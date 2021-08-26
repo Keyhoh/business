@@ -12,7 +12,7 @@ public class IntSource {
         final BigDecimal s = BigDecimal.valueOf(start);
         final BigDecimal l = BigDecimal.valueOf(stop).subtract(s).add(BigDecimal.ONE);
         final Set<Integer> set = new HashSet<>();
-        while (set.size() < 4096) {
+        while (set.size() < Math.min(4096, l.longValue())) {
             set.add(BigDecimal.valueOf(Math.random()).multiply(l).add(s).intValue());
         }
         return set.parallelStream().mapToInt(i -> i);
@@ -28,6 +28,16 @@ public class IntSource {
 
     public static IntStream intStream() {
         return intStream(Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+    public static Stream<Pair<Integer, Integer>> intPairsClosed(final int start, final int stop) {
+        final List<Integer> x = intStreamClosed(start, stop).boxed().toList();
+        final List<Integer> y = intStreamClosed(start, stop).boxed().toList();
+        final Set<Pair<Integer, Integer>> pairs = new HashSet<>();
+        for (int i = 0; i < x.size(); i++) {
+            pairs.add(new Pair<>(x.get(i), y.get(i)));
+        }
+        return pairs.stream();
     }
 
     public static Stream<Pair<Integer, Integer>> intPairsClosed() {
