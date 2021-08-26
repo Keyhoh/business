@@ -21,4 +21,10 @@ class DayTest {
     void add(final int one, final int other) {
         assertEquals(Period.ofDays(one).plusDays(other), new Day(one).add(new Day(other)).value());
     }
+
+    @ParameterizedTest
+    @MethodSource("intStreamClosed")
+    void subtract(final int one, final int other) {
+        assertEquals(Period.ofDays(one).minusDays(other), new Day(one).subtract(new Day(other)).value());
+    }
 }

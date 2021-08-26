@@ -10,4 +10,8 @@ public record Day(Period value) {
     public Day add(final Day other) {
         return new Day(this.value.plusDays(other.value.getDays()));
     }
+
+    public Day subtract(final Day other) {
+        return new Day(this.value.minusDays(other.value.getDays()));
+    }
 }
