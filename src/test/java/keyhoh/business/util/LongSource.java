@@ -12,7 +12,7 @@ public class LongSource {
         final BigDecimal s = BigDecimal.valueOf(start);
         final BigDecimal l = BigDecimal.valueOf(stop).subtract(s).add(BigDecimal.ONE);
         final Set<Long> set = new HashSet<>();
-        while (set.size() < 4096) {
+        while (set.size() < l.min(BigDecimal.valueOf(4096)).intValue()) {
             set.add(BigDecimal.valueOf(Math.random()).multiply(l).add(s).longValue());
         }
         return set.parallelStream().mapToLong(i -> i);
@@ -30,13 +30,17 @@ public class LongSource {
         return longStream(Long.MIN_VALUE, Long.MAX_VALUE);
     }
 
-    public static Stream<Pair<Long, Long>> longPairsClosed() {
-        final List<Long> x = longStreamClosed().boxed().toList();
-        final List<Long> y = longStreamClosed().boxed().toList();
+    public static Stream<Pair<Long, Long>> longPairsClosed(final long start, final long stop) {
+        final List<Long> x = longStreamClosed(start, stop).boxed().toList();
+        final List<Long> y = longStreamClosed(start, stop).boxed().toList();
         final Set<Pair<Long, Long>> pairs = new HashSet<>();
         for (int i = 0; i < x.size(); i++) {
             pairs.add(new Pair<>(x.get(i), y.get(i)));
         }
         return pairs.stream();
+    }
+
+    public static Stream<Pair<Long, Long>> longPairsClosed() {
+        return longPairsClosed(Long.MIN_VALUE, Long.MAX_VALUE);
     }
 }

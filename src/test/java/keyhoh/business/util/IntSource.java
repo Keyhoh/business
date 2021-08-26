@@ -41,12 +41,6 @@ public class IntSource {
     }
 
     public static Stream<Pair<Integer, Integer>> intPairsClosed() {
-        final List<Integer> x = intStreamClosed().boxed().toList();
-        final List<Integer> y = intStreamClosed().boxed().toList();
-        final Set<Pair<Integer, Integer>> pairs = new HashSet<>();
-        for (int i = 0; i < x.size(); i++) {
-            pairs.add(new Pair<>(x.get(i), y.get(i)));
-        }
-        return pairs.stream();
+        return intPairsClosed(Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 }
