@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class DayTest {
+class BusinessDayTest {
     static Stream<Arguments> intStreamClosed() {
         return IntSource.intPairsClosed(Integer.MIN_VALUE / 2, Integer.MAX_VALUE / 2).map(Pair::toArguments);
     }
@@ -19,12 +19,12 @@ class DayTest {
     @ParameterizedTest
     @MethodSource("intStreamClosed")
     void add(final int one, final int other) {
-        assertEquals(Period.ofDays(one).plusDays(other), new Day(one).add(new Day(other)).value());
+        assertEquals(Period.ofDays(one).plusDays(other), new BusinessDay(one).add(new BusinessDay(other)).value());
     }
 
     @ParameterizedTest
     @MethodSource("intStreamClosed")
     void subtract(final int one, final int other) {
-        assertEquals(Period.ofDays(one).minusDays(other), new Day(one).subtract(new Day(other)).value());
+        assertEquals(Period.ofDays(one).minusDays(other), new BusinessDay(one).subtract(new BusinessDay(other)).value());
     }
 }
