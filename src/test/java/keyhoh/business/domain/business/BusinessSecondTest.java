@@ -21,10 +21,4 @@ class BusinessSecondTest {
     void add(final long one, final long other) {
         assertEquals(Duration.ofSeconds(one).plusSeconds(other), new BusinessSecond(one).add(new BusinessSecond(other)).value());
     }
-
-    @ParameterizedTest
-    @MethodSource("longStreamClosed")
-    void subtract(final long one, final long other) {
-        assertEquals(Duration.ofSeconds(one).minusSeconds(other), new BusinessSecond(one).subtract(new BusinessSecond(other)).value());
-    }
 }
