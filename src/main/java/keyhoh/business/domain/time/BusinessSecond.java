@@ -8,8 +8,8 @@ import java.time.Duration;
  * 営業時間とはビジネスが稼働している時間です。
  * 単位は秒です。
  */
-public record BusinessTime(Duration value) {
-    public BusinessTime(final Long value) {
+public record BusinessSecond(Duration value) {
+    public BusinessSecond(final Long value) {
         this(Duration.ofSeconds(value));
     }
 
@@ -19,8 +19,8 @@ public record BusinessTime(Duration value) {
      * @param other もう一つの営業時間
      * @return 和の営業時間
      */
-    public BusinessTime add(final BusinessTime other) {
-        return new BusinessTime(this.value.plusSeconds(other.value.toSeconds()));
+    public BusinessSecond add(final BusinessSecond other) {
+        return new BusinessSecond(this.value.plusSeconds(other.value.toSeconds()));
     }
 
     /**
@@ -29,7 +29,7 @@ public record BusinessTime(Duration value) {
      * @param other もう一つの営業時間
      * @return 差の営業時間
      */
-    public BusinessTime subtract(final BusinessTime other) {
-        return new BusinessTime(this.value.minusSeconds(other.value.toSeconds()));
+    public BusinessSecond subtract(final BusinessSecond other) {
+        return new BusinessSecond(this.value.minusSeconds(other.value.toSeconds()));
     }
 }
