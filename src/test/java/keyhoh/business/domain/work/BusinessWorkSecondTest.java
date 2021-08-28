@@ -1,4 +1,4 @@
-package keyhoh.business.domain.business;
+package keyhoh.business.domain.work;
 
 import keyhoh.business.util.LongSource;
 import keyhoh.business.util.Pair;
@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class BusinessSecondTest {
+class BusinessWorkSecondTest {
     static Stream<Arguments> longStreamClosed() {
         return LongSource.longPairsClosed(Long.MIN_VALUE / 2, Long.MAX_VALUE / 2).map(Pair::toArguments);
     }
@@ -19,6 +19,6 @@ class BusinessSecondTest {
     @ParameterizedTest
     @MethodSource("longStreamClosed")
     void add(final long one, final long other) {
-        assertEquals(Duration.ofSeconds(one).plusSeconds(other), new BusinessSecond(one).add(new BusinessSecond(other)).value());
+        assertEquals(Duration.ofSeconds(one).plusSeconds(other), new WorkSecond(one).add(new WorkSecond(other)).value());
     }
 }

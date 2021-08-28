@@ -7,8 +7,8 @@ import java.time.Duration;
  * 就業時間とは人がビジネスに従事している時間です。
  * 単位は秒です。
  */
-public record Second(Duration value) {
-    public Second(final Long value) {
+public record WorkSecond(Duration value) {
+    public WorkSecond(final Long value) {
         this(Duration.ofSeconds(value));
     }
 
@@ -18,7 +18,7 @@ public record Second(Duration value) {
      * @param other もう一つの就業時間
      * @return 和の就業時間
      */
-    public Second add(final Second other) {
-        return new Second(this.value.plusSeconds(other.value.toSeconds()));
+    public WorkSecond add(final WorkSecond other) {
+        return new WorkSecond(this.value.plusSeconds(other.value.toSeconds()));
     }
 }
