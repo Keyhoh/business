@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class BusinessDateTest {
     private final Set<DayOfWeek> HOLIDAYS = new HashSet<>(Arrays.asList(DayOfWeek.SUNDAY, DayOfWeek.SATURDAY));
 
-    final BusinessDay businessDay = date -> {
+    final BusinessCalendar businessCalendar = date -> {
         final DayOfWeek dayOfWeek = date.getDayOfWeek();
         return HOLIDAYS.contains(dayOfWeek) ? BusinessDayType.NON_BUSINESS_DAY : BusinessDayType.BUSINESS_DAY;
     };
@@ -29,7 +29,7 @@ class BusinessDateTest {
     @MethodSource("localDateStream")
     void isBusinessDay(final LocalDate localDate) {
         final DayOfWeek dayOfWeek = localDate.getDayOfWeek();
-        final BusinessDate businessDate = new BusinessDate(localDate, businessDay);
+        final BusinessDate businessDate = new BusinessDate(localDate, businessCalendar);
         assertEquals(!HOLIDAYS.contains(dayOfWeek), businessDate.isBusinessDay());
     }
 }
