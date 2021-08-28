@@ -1,4 +1,4 @@
-package keyhoh.business.domain.time;
+package keyhoh.business.domain.business;
 
 import java.time.Month;
 import java.time.Year;
