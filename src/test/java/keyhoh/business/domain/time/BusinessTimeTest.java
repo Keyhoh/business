@@ -1,4 +1,4 @@
-package keyhoh.business.time;
+package keyhoh.business.domain.time;
 
 import keyhoh.business.util.LongSource;
 import keyhoh.business.util.Pair;

@@ -1,4 +1,4 @@
-package keyhoh.business.currency;
+package keyhoh.business.domain.currency;
 
 import keyhoh.business.util.LongSource;
 import keyhoh.business.util.Pair;

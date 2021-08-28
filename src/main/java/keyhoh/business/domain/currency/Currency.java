@@ -1,4 +1,4 @@
-package keyhoh.business.currency;
+package keyhoh.business.domain.currency;
 
 import java.math.BigInteger;
 import java.text.DecimalFormat;
