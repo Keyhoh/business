@@ -33,7 +33,7 @@ class CurrencyTest {
     @ParameterizedTest
     @MethodSource("longStreamClosed")
     void longConstruct(final long value) {
-        assertEquals(new Currency(value), new Currency(value));
+        assertEquals(new Currency(BigInteger.valueOf(value)), new Currency(value));
     }
 
     @ParameterizedTest
@@ -41,7 +41,7 @@ class CurrencyTest {
     void addLong(final long a, final long b) {
         final Currency x = new Currency(a);
         final Currency y = new Currency(b);
-        assertEquals(x.add(y), new Currency(BigInteger.valueOf(a).add(BigInteger.valueOf(b))));
+        assertEquals(new Currency(BigInteger.valueOf(a).add(BigInteger.valueOf(b))), x.add(y));
     }
 
     @ParameterizedTest
@@ -49,7 +49,7 @@ class CurrencyTest {
     void addLong_on_boundary(final long a, final long b) {
         final Currency x = new Currency(a);
         final Currency y = new Currency(b);
-        assertEquals(x.add(y), new Currency(BigInteger.valueOf(a).add(BigInteger.valueOf(b))));
+        assertEquals(new Currency(BigInteger.valueOf(a).add(BigInteger.valueOf(b))), x.add(y));
     }
 
     @ParameterizedTest
@@ -57,7 +57,7 @@ class CurrencyTest {
     void subtractLong(final long a, final long b) {
         final Currency x = new Currency(a);
         final Currency y = new Currency(b);
-        assertEquals(x.subtract(y), new Currency(BigInteger.valueOf(a).subtract(BigInteger.valueOf(b))));
+        assertEquals(new Currency(BigInteger.valueOf(a).subtract(BigInteger.valueOf(b))), x.subtract(y));
     }
 
     @ParameterizedTest
@@ -65,6 +65,6 @@ class CurrencyTest {
     void subtractLong_on_boundary(final long a, final long b) {
         final Currency x = new Currency(a);
         final Currency y = new Currency(b);
-        assertEquals(x.subtract(y), new Currency(BigInteger.valueOf(a).subtract(BigInteger.valueOf(b))));
+        assertEquals(new Currency(BigInteger.valueOf(a).subtract(BigInteger.valueOf(b))), x.subtract(y));
     }
 }

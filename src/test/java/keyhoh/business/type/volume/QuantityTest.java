@@ -42,13 +42,13 @@ class QuantityTest {
     void add(final long a, final long b) {
         final Quantity x = new Quantity(a);
         final Quantity y = new Quantity(b);
-        assertEquals(x.add(y).value(), BigInteger.valueOf(a).add(BigInteger.valueOf(b)));
+        assertEquals(BigInteger.valueOf(a).add(BigInteger.valueOf(b)), x.add(y).value());
     }
 
     @ParameterizedTest
     @MethodSource("longPairsClosed")
     void scalar_product(final long value, final long scalar) {
         final Quantity x = new Quantity(value);
-        assertEquals(x.multiply(scalar).value(), BigInteger.valueOf(value).multiply(BigInteger.valueOf(scalar)));
+        assertEquals(BigInteger.valueOf(value).multiply(BigInteger.valueOf(scalar)), x.multiply(scalar).value());
     }
 }

@@ -20,7 +20,7 @@ class BusinessYearTest {
     @ValueSource(ints = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12})
     void toYear_by_default_business_year(final int month) {
         final BusinessYear businessYear = new BusinessYear(Year.of(2000));
-        assertEquals(businessYear.toYear(Month.of(month)), Year.of(2000));
+        assertEquals(Year.of(2000), businessYear.toYear(Month.of(month)));
     }
 
     @ParameterizedTest
@@ -28,7 +28,7 @@ class BusinessYearTest {
     void toYear_on_current_year(final int month) {
         System.setProperty("business.time.year.start", "4");
         final BusinessYear businessYear = new BusinessYear(Year.of(2000));
-        assertEquals(businessYear.toYear(Month.of(month)), Year.of(2000));
+        assertEquals(Year.of(2000), businessYear.toYear(Month.of(month)));
     }
 
     @ParameterizedTest
@@ -36,12 +36,12 @@ class BusinessYearTest {
     void toYear_on_next_year(final int month) {
         System.setProperty("business.time.year.start", "4");
         final BusinessYear businessYear = new BusinessYear(Year.of(2000));
-        assertEquals(businessYear.toYear(Month.of(month)), Year.of(2001));
+        assertEquals(Year.of(2001), businessYear.toYear(Month.of(month)));
     }
 
     @ParameterizedTest
     @MethodSource("yearStream")
     void getValue(final Year year) {
-        assertEquals(new BusinessYear(year).getValue(), year.getValue());
+        assertEquals(year.getValue(), new BusinessYear(year).getValue());
     }
 }
