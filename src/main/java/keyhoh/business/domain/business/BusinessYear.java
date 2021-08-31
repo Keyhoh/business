@@ -2,6 +2,7 @@ package keyhoh.business.domain.business;
 
 import java.time.Month;
 import java.time.Year;
+import java.time.YearMonth;
 import java.util.Optional;
 
 /**
@@ -45,11 +46,28 @@ public class BusinessYear {
     }
 
     /**
+     * 開始年月を返します。
+     *
+     * @return 年月
+     */
+    public YearMonth start() {
+        return this.value.atMonth(start);
+    }
+
+    /**
      * 年度の値を返します。
      *
      * @return 値
      */
     public int getValue() {
         return this.value.getValue();
+    }
+
+    @Override
+    public String toString() {
+        return "BusinessYear{" +
+                "start=" + start +
+                ", value=" + value +
+                '}';
     }
 }
