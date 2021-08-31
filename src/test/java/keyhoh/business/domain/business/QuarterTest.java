@@ -16,7 +16,7 @@ class QuarterTest {
     }
 
     static Stream<BusinessYear> businessYearStream() {
-        return IntSource.intStream(1, 12).mapToObj(Month::of).map(m -> new BusinessYear(m, Year.of(2020)));
+        return businessYearStream(1, 12);
     }
 
     @ParameterizedTest
@@ -37,5 +37,25 @@ class QuarterTest {
         assertEquals(businessYear.start().plusMonths(3).atEndOfMonth(), quarter.second().lastDay());
         assertEquals(businessYear.start().plusMonths(6).atEndOfMonth(), quarter.third().lastDay());
         assertEquals(businessYear.start().plusMonths(9).atEndOfMonth(), quarter.forth().lastDay());
+    }
+
+    @ParameterizedTest
+    @MethodSource("businessYearStream")
+    void nextPeriod(final BusinessYear businessYear) {
+        final Quarter quarter = new Quarter(businessYear);
+        assertEquals(quarter.second(), quarter.first().next());
+        assertEquals(quarter.third(), quarter.second().next());
+        assertEquals(quarter.forth(), quarter.third().next());
+        assertEquals(quarter.next().first(), quarter.forth().next());
+    }
+
+    @ParameterizedTest
+    @MethodSource("businessYearStream")
+    void previousPeriod(final BusinessYear businessYear) {
+        final Quarter quarter = new Quarter(businessYear);
+        assertEquals(quarter.previous().forth(), quarter.first().previous());
+        assertEquals(quarter.first(), quarter.second().previous());
+        assertEquals(quarter.second(), quarter.third().previous());
+        assertEquals(quarter.third(), quarter.forth().previous());
     }
 }

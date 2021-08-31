@@ -36,6 +36,24 @@ public class BusinessYear {
     }
 
     /**
+     * 次年度を作成します。
+     *
+     * @return 次年度
+     */
+    public BusinessYear next() {
+        return new BusinessYear(this.start, this.value.plusYears(1));
+    }
+
+    /**
+     * 前年度を作成します。
+     *
+     * @return 前年度
+     */
+    public BusinessYear previous() {
+        return new BusinessYear(this.start, this.value.minusYears(1));
+    }
+
+    /**
      * 年を返します。
      *
      * @param on 月
@@ -69,5 +87,23 @@ public class BusinessYear {
                 "start=" + start +
                 ", value=" + value +
                 '}';
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        final BusinessYear that = (BusinessYear) o;
+
+        if (start != that.start) return false;
+        return value.equals(that.value);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = start.hashCode();
+        result = 31 * result + value.hashCode();
+        return result;
     }
 }
